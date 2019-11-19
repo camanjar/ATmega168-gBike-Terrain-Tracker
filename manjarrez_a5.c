@@ -12,7 +12,6 @@ in this program as well.
 #define BAUD 9600
 #define ADXL345_ADDRESS_W 0b10100110
 #define ADXL345_ADDRESS_R 0b10100111
-//#include <i2c/i2c.h>
 #include "pinDefines.h"
 #include "i2c.h"
 #include <avr/io.h>      //Macros, ports, registers, etc.
@@ -45,7 +44,8 @@ int main(void) {
         serial_info= read_uart(); //Recieve serial information
         write_uart(serial_info); //Transmit serial information
         check_input(serial_info); //Provide behavior to breadboard (RGB-LED, 7-Display )
-
+        printByte(serial_info);
+        _delay_ms(3000);
     }
 
     return 0;
@@ -55,12 +55,11 @@ void i2c_accelerometer() {
     i2cStart();
     i2cSend(ADXL345_ADDRESS_W);
     i2cSend(0x2D);
-    i2cSend(1 << 3);
+    i2cStart();
+    //i2cSend(1 << 3);
     i2cSend(ADXL345_ADDRESS_R);
     serial_info = i2cReadAck;
     temp = i2cReadNoAck;
-
-    
     i2cStop();
 }
 //Code for init_uart is authered by Dr. Robert Heinrichs from SER456 Slides 14
@@ -99,7 +98,7 @@ void check_input(uint8_t n) {
     //Accelerometer logic in here!
 }
 
-//---------------CODE FROM i2C.c-----------------//
+// i2c.c code
 
 void initI2C(void) {
                                      /* set pullups for SDA, SCL lines */

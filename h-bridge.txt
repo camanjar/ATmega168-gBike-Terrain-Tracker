@@ -1,0 +1,7 @@
+Used to control DC motors 
+
+Can reverse polarity to turn motor in both directions
+    - More flexibility/control 
+
+Allows use of a secondary power supply for motots(e.g. for higher voltage)
+    - Limits voltage to 5v

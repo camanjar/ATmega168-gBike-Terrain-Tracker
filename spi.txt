@@ -1,0 +1,25 @@
+SPI 
+Serial
+
+Connects two devices and allows communication between them, two key differences: 
+    - Serial Peripheral Interface (SPI)
+    - Uses usually 4 wires
+    - Common clock frequencies of bus: 10-50 MHz
+        - 10 MHz is already 100x faster than fastest speed of UART (around 100,000 baud)
+        - I2C frequencies can go up to 750-800 kHz
+
+Master sets clock (SCK or SCLK); first edge input, second edge read 
+
+Master writes on MOSI wire (Master-out-slave-in)
+
+Slave writes on MISO wire (master in slave out) 
+    - MISO + MOSI = full-duplex (I2C only half-duplex): recieve & transmit simultaneously 
+
+Master selects Slave/Chip select (SS or CS) per wire (default: 5V/high, selected: 0V/low)
+    - Instead of I2C address system
+
+Master and Slave always sends AND reads 1 bit
+    - Transmitted bit (MOSI) "pushes" out one bit (at slave register)
+    - Pushes out bit is transmitted back (MISO) and fills gat at master 
+        - this looks like a wheel
+    - If data only should be recieved from Slave, Master sends out 0s (irrelevant data)

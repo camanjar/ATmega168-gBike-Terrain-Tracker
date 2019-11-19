@@ -1,0 +1,7 @@
+{
+    "C_Cpp.dimInactiveRegions": false,
+    "files.associations": {
+        "io.h": "c",
+        "pindefines.h": "c"
+    }
+}

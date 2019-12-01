@@ -1,45 +1,21 @@
 Archive member included to satisfy reference by file (symbol)
 
-/usr/lib/gcc/avr/4.9.2/avr5/libgcc.a(_udivmodqi4.o)
-                              manjarrez_a5.o (__udivmodqi4)
 /usr/lib/gcc/avr/4.9.2/avr5/libgcc.a(_exit.o)
                               /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr5/crtatmega168.o (exit)
 /usr/lib/gcc/avr/4.9.2/avr5/libgcc.a(_copy_data.o)
-                              manjarrez_a5.o (__do_copy_data)
+                              manjarrez_sp.o (__do_copy_data)
 /usr/lib/gcc/avr/4.9.2/avr5/libgcc.a(_clear_bss.o)
-                              manjarrez_a5.o (__do_clear_bss)
-
-Allocating common symbols
-Common symbol       size              file
-
-x                   0x2               manjarrez_a5.o
-z                   0x2               manjarrez_a5.o
-y                   0x2               manjarrez_a5.o
+                              manjarrez_sp.o (__do_clear_bss)
 
 Discarded input sections
 
  .data          0x0000000000000000        0x0 /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr5/crtatmega168.o
  .bss           0x0000000000000000        0x0 /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr5/crtatmega168.o
- .text          0x0000000000000000        0x0 manjarrez_a5.o
- .data          0x0000000000000000        0x0 manjarrez_a5.o
- .bss           0x0000000000000000        0x0 manjarrez_a5.o
- .text.i2cStop  0x0000000000000000        0x8 manjarrez_a5.o
- .text.receiveByte
-                0x0000000000000000        0xe manjarrez_a5.o
- .text          0x0000000000000000        0x0 /usr/lib/gcc/avr/4.9.2/avr5/libgcc.a(_udivmodqi4.o)
- .data          0x0000000000000000        0x0 /usr/lib/gcc/avr/4.9.2/avr5/libgcc.a(_udivmodqi4.o)
- .bss           0x0000000000000000        0x0 /usr/lib/gcc/avr/4.9.2/avr5/libgcc.a(_udivmodqi4.o)
- .text.libgcc.mul
-                0x0000000000000000        0x0 /usr/lib/gcc/avr/4.9.2/avr5/libgcc.a(_udivmodqi4.o)
- .text.libgcc   0x0000000000000000        0x0 /usr/lib/gcc/avr/4.9.2/avr5/libgcc.a(_udivmodqi4.o)
- .text.libgcc.prologue
-                0x0000000000000000        0x0 /usr/lib/gcc/avr/4.9.2/avr5/libgcc.a(_udivmodqi4.o)
- .text.libgcc.builtins
-                0x0000000000000000        0x0 /usr/lib/gcc/avr/4.9.2/avr5/libgcc.a(_udivmodqi4.o)
- .text.libgcc.fmul
-                0x0000000000000000        0x0 /usr/lib/gcc/avr/4.9.2/avr5/libgcc.a(_udivmodqi4.o)
- .text.libgcc.fixed
-                0x0000000000000000        0x0 /usr/lib/gcc/avr/4.9.2/avr5/libgcc.a(_udivmodqi4.o)
+ .text          0x0000000000000000        0x0 manjarrez_sp.o
+ .data          0x0000000000000000        0x0 manjarrez_sp.o
+ .bss           0x0000000000000000        0x0 manjarrez_sp.o
+ .text.LCD_String_xy
+                0x0000000000000000       0x2e manjarrez_sp.o
  .text          0x0000000000000000        0x0 /usr/lib/gcc/avr/4.9.2/avr5/libgcc.a(_exit.o)
  .data          0x0000000000000000        0x0 /usr/lib/gcc/avr/4.9.2/avr5/libgcc.a(_exit.o)
  .bss           0x0000000000000000        0x0 /usr/lib/gcc/avr/4.9.2/avr5/libgcc.a(_exit.o)
@@ -105,7 +81,7 @@ Linker script and memory map
 
 Address of section .data set to 0x800100
 LOAD /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr5/crtatmega168.o
-LOAD manjarrez_a5.o
+LOAD manjarrez_sp.o
 START GROUP
 LOAD /usr/lib/gcc/avr/4.9.2/avr5/libgcc.a
 LOAD /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr5/libm.a
@@ -203,7 +179,7 @@ END GROUP
 .rela.plt
  *(.rela.plt)
 
-.text           0x0000000000000000      0x29c
+.text           0x0000000000000000      0x474
  *(.vectors)
  .vectors       0x0000000000000000       0x68 /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr5/crtatmega168.o
                 0x0000000000000000                __vectors
@@ -261,7 +237,6 @@ END GROUP
  *(.text)
  .text          0x00000000000000a2        0x4 /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr5/crtatmega168.o
                 0x00000000000000a2                __vector_22
-                0x00000000000000a2                __vector_1
                 0x00000000000000a2                __vector_24
                 0x00000000000000a2                __vector_12
                 0x00000000000000a2                __bad_interrupt
@@ -288,54 +263,50 @@ END GROUP
                 0x00000000000000a2                __vector_20
                 0x00000000000000a6                . = ALIGN (0x2)
  *(.text.*)
- .text.init_uart
-                0x00000000000000a6       0x2a manjarrez_a5.o
-                0x00000000000000a6                init_uart
- .text.initI2C  0x00000000000000d0       0x18 manjarrez_a5.o
-                0x00000000000000d0                initI2C
- .text.i2cWaitForComplete
-                0x00000000000000e8        0xa manjarrez_a5.o
-                0x00000000000000e8                i2cWaitForComplete
- .text.i2cStart
-                0x00000000000000f2        0xa manjarrez_a5.o
-                0x00000000000000f2                i2cStart
- .text.i2cReadAck
-                0x00000000000000fc       0x10 manjarrez_a5.o
-                0x00000000000000fc                i2cReadAck
- .text.i2cReadNoAck
-                0x000000000000010c       0x10 manjarrez_a5.o
-                0x000000000000010c                i2cReadNoAck
- .text.i2cSend  0x000000000000011c        0xe manjarrez_a5.o
-                0x000000000000011c                i2cSend
- .text.i2c_accelerometer
-                0x000000000000012a       0x1e manjarrez_a5.o
-                0x000000000000012a                i2c_accelerometer
- .text.read_accel_data
-                0x0000000000000148       0x4c manjarrez_a5.o
-                0x0000000000000148                read_accel_data
- .text.transmitByte
-                0x0000000000000194        0xe manjarrez_a5.o
-                0x0000000000000194                transmitByte
- .text.printString
-                0x00000000000001a2       0x26 manjarrez_a5.o
-                0x00000000000001a2                printString
- .text.printByte
-                0x00000000000001c8       0x32 manjarrez_a5.o
-                0x00000000000001c8                printByte
- .text.write_accel_data
-                0x00000000000001fa       0x52 manjarrez_a5.o
-                0x00000000000001fa                write_accel_data
+ .text.LCD_Command
+                0x00000000000000a6       0x42 manjarrez_sp.o
+                0x00000000000000a6                LCD_Command
+ .text.LCD_Char
+                0x00000000000000e8       0x42 manjarrez_sp.o
+                0x00000000000000e8                LCD_Char
+ .text.LCD_Init
+                0x000000000000012a       0x3c manjarrez_sp.o
+                0x000000000000012a                LCD_Init
+ .text.LCD_String
+                0x0000000000000166       0x18 manjarrez_sp.o
+                0x0000000000000166                LCD_String
+ .text.LCD_Clear
+                0x000000000000017e       0x18 manjarrez_sp.o
+                0x000000000000017e                LCD_Clear
+ .text.button_init
+                0x0000000000000196        0x6 manjarrez_sp.o
+                0x0000000000000196                button_init
+ .text.interrupts_init
+                0x000000000000019c       0x10 manjarrez_sp.o
+                0x000000000000019c                interrupts_init
  .text.startup.main
-                0x000000000000024c       0x34 manjarrez_a5.o
-                0x000000000000024c                main
- .text.libgcc.div
-                0x0000000000000280       0x18 /usr/lib/gcc/avr/4.9.2/avr5/libgcc.a(_udivmodqi4.o)
-                0x0000000000000280                __udivmodqi4
-                0x0000000000000298                . = ALIGN (0x2)
+                0x00000000000001ac       0x76 manjarrez_sp.o
+                0x00000000000001ac                main
+ .text.debounce
+                0x0000000000000222       0x22 manjarrez_sp.o
+                0x0000000000000222                debounce
+ .text.gbike_greeting
+                0x0000000000000244       0x66 manjarrez_sp.o
+                0x0000000000000244                gbike_greeting
+ .text.gbike_main_display
+                0x00000000000002aa       0x7c manjarrez_sp.o
+                0x00000000000002aa                gbike_main_display
+ .text.riding_bike
+                0x0000000000000326       0x96 manjarrez_sp.o
+                0x0000000000000326                riding_bike
+ .text.__vector_1
+                0x00000000000003bc       0xb4 manjarrez_sp.o
+                0x00000000000003bc                __vector_1
+                0x0000000000000470                . = ALIGN (0x2)
  *(.fini9)
- .fini9         0x0000000000000298        0x0 /usr/lib/gcc/avr/4.9.2/avr5/libgcc.a(_exit.o)
-                0x0000000000000298                exit
-                0x0000000000000298                _exit
+ .fini9         0x0000000000000470        0x0 /usr/lib/gcc/avr/4.9.2/avr5/libgcc.a(_exit.o)
+                0x0000000000000470                exit
+                0x0000000000000470                _exit
  *(.fini9)
  *(.fini8)
  *(.fini8)
@@ -354,42 +325,48 @@ END GROUP
  *(.fini1)
  *(.fini1)
  *(.fini0)
- .fini0         0x0000000000000298        0x4 /usr/lib/gcc/avr/4.9.2/avr5/libgcc.a(_exit.o)
+ .fini0         0x0000000000000470        0x4 /usr/lib/gcc/avr/4.9.2/avr5/libgcc.a(_exit.o)
  *(.fini0)
-                0x000000000000029c                _etext = .
+                0x0000000000000474                _etext = .
 
-.data           0x0000000000800100       0x16 load address 0x000000000000029c
+.data           0x0000000000800100       0xa6 load address 0x0000000000000474
                 0x0000000000800100                PROVIDE (__data_start, .)
  *(.data)
  *(.data*)
+ .data.flag     0x0000000000800100        0x2 manjarrez_sp.o
+                0x0000000000800100                flag
+ .data.button_start
+                0x0000000000800102        0x2 manjarrez_sp.o
  *(.rodata)
  *(.rodata*)
  .rodata.str1.1
-                0x0000000000800100       0x16 manjarrez_a5.o
+                0x0000000000800104       0xa1 manjarrez_sp.o
  *(.gnu.linkonce.d*)
-                0x0000000000800116                . = ALIGN (0x2)
-                0x0000000000800116                _edata = .
-                0x0000000000800116                PROVIDE (__data_end, .)
+                0x00000000008001a6                . = ALIGN (0x2)
+ *fill*         0x00000000008001a5        0x1 
+                0x00000000008001a6                _edata = .
+                0x00000000008001a6                PROVIDE (__data_end, .)
 
-.bss            0x0000000000800116        0x6
-                0x0000000000800116                PROVIDE (__bss_start, .)
+.bss            0x00000000008001a6        0x4
+                0x00000000008001a6                PROVIDE (__bss_start, .)
  *(.bss)
  *(.bss*)
+ .bss.time      0x00000000008001a6        0x2 manjarrez_sp.o
+                0x00000000008001a6                time
+ .bss.has_started
+                0x00000000008001a8        0x2 manjarrez_sp.o
+                0x00000000008001a8                has_started
  *(COMMON)
- COMMON         0x0000000000800116        0x6 manjarrez_a5.o
-                0x0000000000800116                x
-                0x0000000000800118                z
-                0x000000000080011a                y
-                0x000000000080011c                PROVIDE (__bss_end, .)
-                0x000000000000029c                __data_load_start = LOADADDR (.data)
-                0x00000000000002b2                __data_load_end = (__data_load_start + SIZEOF (.data))
+                0x00000000008001aa                PROVIDE (__bss_end, .)
+                0x0000000000000474                __data_load_start = LOADADDR (.data)
+                0x000000000000051a                __data_load_end = (__data_load_start + SIZEOF (.data))
 
-.noinit         0x000000000080011c        0x0
-                0x000000000080011c                PROVIDE (__noinit_start, .)
+.noinit         0x00000000008001aa        0x0
+                0x00000000008001aa                PROVIDE (__noinit_start, .)
  *(.noinit*)
-                0x000000000080011c                PROVIDE (__noinit_end, .)
-                0x000000000080011c                _end = .
-                0x000000000080011c                PROVIDE (__heap_start, .)
+                0x00000000008001aa                PROVIDE (__noinit_end, .)
+                0x00000000008001aa                _end = .
+                0x00000000008001aa                PROVIDE (__heap_start, .)
 
 .eeprom         0x0000000000810000        0x0
  *(.eeprom*)
@@ -410,14 +387,14 @@ END GROUP
 .user_signatures
  *(.user_signatures*)
 
-.stab           0x0000000000000000      0xb88
+.stab           0x0000000000000000     0x102c
  *(.stab)
- .stab          0x0000000000000000      0xb88 manjarrez_a5.o
-                                        0xc18 (size before relaxing)
+ .stab          0x0000000000000000     0x102c manjarrez_sp.o
+                                       0x10ec (size before relaxing)
 
-.stabstr        0x0000000000000000      0xd85
+.stabstr        0x0000000000000000      0xd7b
  *(.stabstr)
- .stabstr       0x0000000000000000      0xd85 manjarrez_a5.o
+ .stabstr       0x0000000000000000      0xd7b manjarrez_sp.o
 
 .stab.excl
  *(.stab.excl)
@@ -433,7 +410,7 @@ END GROUP
 
 .comment        0x0000000000000000       0x11
  *(.comment)
- .comment       0x0000000000000000       0x11 manjarrez_a5.o
+ .comment       0x0000000000000000       0x11 manjarrez_sp.o
                                          0x12 (size before relaxing)
 
 .note.gnu.avr.deviceinfo
@@ -503,5 +480,5 @@ END GROUP
 
 .debug_macro
  *(.debug_macro)
-OUTPUT(manjarrez_a5.elf elf32-avr)
+OUTPUT(manjarrez_sp.elf elf32-avr)
 LOAD linker stubs

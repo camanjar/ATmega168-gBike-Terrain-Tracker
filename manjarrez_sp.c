@@ -26,15 +26,35 @@ int has_started=0; //Flag for checking states
 int time = 0; //Total time biked
 char time_to_string[4]; //itoa preface
 
-typedef enum terrain {Rocky, Flat, Mixed, Steep} terrain;
+//-----Accelerometer-----//
+//i2c Functions (from Canvas)
+void i2c_accelerometer();
+void initI2C(void);
+void i2cWaitForComplete(void);
+void i2cStart(void); 
+void i2cStop(void);
+uint8_t i2cReadAck(void);
+uint8_t i2cReadNoAck(void);
+void i2cSend(uint8_t data);
+
+//-----ADXL345 + LCD Display-----//
+typedef enum terrain {Flat, Rocky, Mixed, Uphill, Downhill} terrain; //Types of terrain
+int* total_average;
+uint16_t average_num; 
+uint16_t x, y, z;
+
+char* terrain_type_string;
+char* terrain_type(); //Displays string of current detected terrain
+void calculate_terrain(); //Gran x, y, z accelerometer values to useable data
 
 int main(void) {
 
    //------Initializations-----//
-
    LCD_Init();
    button_init();
    interrupts_init();
+   initI2C();
+   i2c_accelerometer();
 
    LCD_Clear();
    LCD_String("Hi from G-Bike!");
@@ -114,7 +134,7 @@ void riding_bike() { //Main communication prompt for user
    LCD_String_xy(1,8, "1");
    _delay_ms(1000);
    LCD_Clear();
-   LCD_String("Start!");
+   LCD_String_xy(0,5,"Start!");
    _delay_ms(1000);
    gbike_main_display();
 }
@@ -136,17 +156,136 @@ void gbike_main_display() {
    LCD_Clear();
    LCD_String("Terrain: ");
    LCD_String_xy(1,0, "Time: ");
-
-   while (time < 180) {
+   LCD_String_xy(1,9,"s");
+   while (time < 30) { //30 seconds
       time++;
-      itoa(time, time_to_string, 10);
-      LCD_String_xy(0,9, "Rocky");
+      itoa(time, time_to_string, 10); //converts time (seconds) to char*
+      calculate_terrain();
+      LCD_Clear();
+      LCD_String("Terrain: ");
+      LCD_String_xy(1,0, "Time: ");
+      LCD_String_xy(1,9,"s");
+      LCD_String_xy(0,9, terrain_type());
       LCD_String_xy(1,6, time_to_string);
       _delay_ms(1000);
    }
+
+   //TODO
+   // int i = 0;
+   // int total=0;
+   // while(total_average[i]) { 
+   //    total += total_average[i];
+   // }
+
+   // average_num = total/time;
 
    LCD_Clear();
    LCD_String("Average terrain: ");
    LCD_String_xy(1,6, "Rocky");
    time = 0; //reset
 }
+
+//-----Accelerometer/I2C Functions-----//
+
+void i2c_accelerometer() {
+    i2cStart(); //Init serial communication 
+    i2cSend(ADXL345_ADDRESS_W); //Begin communication with sensor
+    i2cSend(0x2D); //POWER_CTL 
+    i2cSend(1 << 3); //D3 set to high (measure)
+    i2cStop(); 
+}
+
+void initI2C(void) {
+                                     /* set pullups for SDA, SCL lines */
+  I2C_SDA_PORT |= ((1 << I2C_SDA) | (1 << I2C_SCL));
+  TWBR = 32;   /* set bit rate (p.242): 8MHz / (16+2*TWBR*1) ~= 100kHz */
+  TWCR |= (1 << TWEN);                                       /* enable */
+}
+
+void i2cWaitForComplete(void) {
+  loop_until_bit_is_set(TWCR, TWINT);
+}
+
+void i2cStart(void) {
+  TWCR = (_BV(TWINT) | _BV(TWEN) | _BV(TWSTA));
+  i2cWaitForComplete();
+}
+
+void i2cStop(void) {
+  TWCR = (_BV(TWINT) | _BV(TWEN) | _BV(TWSTO));
+}
+
+uint8_t i2cReadAck(void) {
+  TWCR = (_BV(TWINT) | _BV(TWEN) | _BV(TWEA));
+  i2cWaitForComplete();
+  return (TWDR);
+}
+
+uint8_t i2cReadNoAck(void) {
+  TWCR = (_BV(TWINT) | _BV(TWEN));
+  i2cWaitForComplete();
+  return (TWDR);
+}
+
+void i2cSend(uint8_t data) {
+  TWDR = data;
+  TWCR = (_BV(TWINT) | _BV(TWEN));                  /* init and enable */
+  i2cWaitForComplete();
+}
+
+//Displays string of current detected terrain
+char* terrain_type() {
+   if(average_num >=0 && average_num <= 200) {
+      terrain_type_string = "Rocky";
+   } else {
+      terrain_type_string = "Flat";
+   }
+
+   return terrain_type_string;
+}
+
+//Gran x, y, z accelerometer values to useable data
+void calculate_terrain() {
+
+   uint8_t temp = 0;
+      i2cStart(); 
+      i2cSend(ADXL345_ADDRESS_W); //slave address write
+      i2cSend(0x32); //Register of x coordinate information
+      i2cStart();
+      i2cSend(ADXL345_ADDRESS_R); //slave addres read
+      temp = i2cReadAck(); //Read bytes
+      temp += i2cReadNoAck();
+      i2cStop();
+      x = temp;
+
+      /*
+      The following steps mimic above, reading from each register
+      */
+      i2cStart();
+      i2cSend(ADXL345_ADDRESS_W);
+      i2cSend(0x34);
+      i2cStart();
+      i2cSend(ADXL345_ADDRESS_R);
+      temp = i2cReadAck();
+      temp += i2cReadNoAck();
+      i2cStop();
+      y = temp;
+
+      i2cStart();
+      i2cSend(ADXL345_ADDRESS_W); 
+      i2cSend(0x36);
+      i2cStart();
+      i2cSend(ADXL345_ADDRESS_R);
+      temp = i2cReadAck();
+      temp += i2cReadNoAck();
+      i2cStop();
+      z = temp;
+
+      average_num = (x+y+z)/3;
+      // char boop[5];
+      // itoa(average_num,boop, 10);
+      // LCD_Clear();
+      // LCD_String(boop);
+      // _delay_ms(4000);
+      //printf("%u", (unsigned int)average_num);
+} 

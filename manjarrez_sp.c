@@ -9,6 +9,7 @@
 #include <util/setbaud.h>
 #include <avr/interrupt.h> //Library for interrupts
 #include "lcd.h"
+#include <stdlib.h>
 
 //-----Button Functions-----//
 void button_init(); //Initialize button behavior
@@ -19,11 +20,13 @@ uint8_t debounce(void); //Debouncing function for button
 //-----Biking Stats-----//
 void riding_bike();
 void gbike_greeting();
-
 static int button_start = 1;
 int flag = 1; //Flag for checking states
 int has_started=0; //Flag for checking states
-int time = 0;
+int time = 0; //Total time biked
+char time_to_string[4]; //itoa preface
+
+typedef enum terrain {Rocky, Flat, Mixed, Steep} terrain;
 
 int main(void) {
 
@@ -42,7 +45,7 @@ int main(void) {
    LCD_Clear();
    LCD_String("Press button to");
    LCD_String_xy(1,0, "start ride! :)");
-   while(button_start);
+   while(1);
 
     return 0; 
 }
@@ -134,16 +137,16 @@ void gbike_main_display() {
    LCD_String("Terrain: ");
    LCD_String_xy(1,0, "Time: ");
 
-   while (time < 10) {
+   while (time < 180) {
       time++;
-      char* temp = (char*) time;
+      itoa(time, time_to_string, 10);
       LCD_String_xy(0,9, "Rocky");
-      LCD_String_xy(1,6, "60s");
+      LCD_String_xy(1,6, time_to_string);
       _delay_ms(1000);
    }
 
    LCD_Clear();
    LCD_String("Average terrain: ");
    LCD_String_xy(1,6, "Rocky");
-   
+   time = 0; //reset
 }

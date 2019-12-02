@@ -6,6 +6,17 @@ Archive member included to satisfy reference by file (symbol)
                               manjarrez_sp.o (__do_copy_data)
 /usr/lib/gcc/avr/4.9.2/avr5/libgcc.a(_clear_bss.o)
                               manjarrez_sp.o (__do_clear_bss)
+/usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr5/libc.a(itoa_ncheck.o)
+                              manjarrez_sp.o (__itoa_ncheck)
+/usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr5/libc.a(utoa_ncheck.o)
+                              /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr5/libc.a(itoa_ncheck.o) (__utoa_common)
+/usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr5/libc.a(strrev.o)
+                              /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr5/libc.a(utoa_ncheck.o) (strrev)
+
+Allocating common symbols
+Common symbol       size              file
+
+time_to_string      0x4               manjarrez_sp.o
 
 Discarded input sections
 
@@ -64,6 +75,15 @@ Discarded input sections
                 0x0000000000000000        0x0 /usr/lib/gcc/avr/4.9.2/avr5/libgcc.a(_clear_bss.o)
  .text.libgcc.fixed
                 0x0000000000000000        0x0 /usr/lib/gcc/avr/4.9.2/avr5/libgcc.a(_clear_bss.o)
+ .text          0x0000000000000000        0x0 /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr5/libc.a(itoa_ncheck.o)
+ .data          0x0000000000000000        0x0 /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr5/libc.a(itoa_ncheck.o)
+ .bss           0x0000000000000000        0x0 /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr5/libc.a(itoa_ncheck.o)
+ .text          0x0000000000000000        0x0 /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr5/libc.a(utoa_ncheck.o)
+ .data          0x0000000000000000        0x0 /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr5/libc.a(utoa_ncheck.o)
+ .bss           0x0000000000000000        0x0 /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr5/libc.a(utoa_ncheck.o)
+ .text          0x0000000000000000        0x0 /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr5/libc.a(strrev.o)
+ .data          0x0000000000000000        0x0 /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr5/libc.a(strrev.o)
+ .bss           0x0000000000000000        0x0 /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr5/libc.a(strrev.o)
 
 Memory Configuration
 
@@ -179,7 +199,7 @@ END GROUP
 .rela.plt
  *(.rela.plt)
 
-.text           0x0000000000000000      0x474
+.text           0x0000000000000000      0x4e2
  *(.vectors)
  .vectors       0x0000000000000000       0x68 /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr5/crtatmega168.o
                 0x0000000000000000                __vectors
@@ -285,28 +305,38 @@ END GROUP
                 0x000000000000019c       0x10 manjarrez_sp.o
                 0x000000000000019c                interrupts_init
  .text.startup.main
-                0x00000000000001ac       0x76 manjarrez_sp.o
+                0x00000000000001ac       0x66 manjarrez_sp.o
                 0x00000000000001ac                main
  .text.debounce
-                0x0000000000000222       0x22 manjarrez_sp.o
-                0x0000000000000222                debounce
+                0x0000000000000212       0x22 manjarrez_sp.o
+                0x0000000000000212                debounce
  .text.gbike_greeting
-                0x0000000000000244       0x66 manjarrez_sp.o
-                0x0000000000000244                gbike_greeting
+                0x0000000000000234       0x66 manjarrez_sp.o
+                0x0000000000000234                gbike_greeting
  .text.gbike_main_display
-                0x00000000000002aa       0x7c manjarrez_sp.o
-                0x00000000000002aa                gbike_main_display
+                0x000000000000029a       0x90 manjarrez_sp.o
+                0x000000000000029a                gbike_main_display
  .text.riding_bike
-                0x0000000000000326       0x96 manjarrez_sp.o
-                0x0000000000000326                riding_bike
+                0x000000000000032a       0x96 manjarrez_sp.o
+                0x000000000000032a                riding_bike
  .text.__vector_1
-                0x00000000000003bc       0xb4 manjarrez_sp.o
-                0x00000000000003bc                __vector_1
-                0x0000000000000470                . = ALIGN (0x2)
+                0x00000000000003c0       0xb4 manjarrez_sp.o
+                0x00000000000003c0                __vector_1
+ .text.avr-libc
+                0x0000000000000474       0x16 /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr5/libc.a(itoa_ncheck.o)
+                0x0000000000000474                __itoa_ncheck
+ .text.avr-libc
+                0x000000000000048a       0x34 /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr5/libc.a(utoa_ncheck.o)
+                0x000000000000048a                __utoa_ncheck
+                0x000000000000048c                __utoa_common
+ .text.avr-libc
+                0x00000000000004be       0x20 /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr5/libc.a(strrev.o)
+                0x00000000000004be                strrev
+                0x00000000000004de                . = ALIGN (0x2)
  *(.fini9)
- .fini9         0x0000000000000470        0x0 /usr/lib/gcc/avr/4.9.2/avr5/libgcc.a(_exit.o)
-                0x0000000000000470                exit
-                0x0000000000000470                _exit
+ .fini9         0x00000000000004de        0x0 /usr/lib/gcc/avr/4.9.2/avr5/libgcc.a(_exit.o)
+                0x00000000000004de                exit
+                0x00000000000004de                _exit
  *(.fini9)
  *(.fini8)
  *(.fini8)
@@ -325,11 +355,11 @@ END GROUP
  *(.fini1)
  *(.fini1)
  *(.fini0)
- .fini0         0x0000000000000470        0x4 /usr/lib/gcc/avr/4.9.2/avr5/libgcc.a(_exit.o)
+ .fini0         0x00000000000004de        0x4 /usr/lib/gcc/avr/4.9.2/avr5/libgcc.a(_exit.o)
  *(.fini0)
-                0x0000000000000474                _etext = .
+                0x00000000000004e2                _etext = .
 
-.data           0x0000000000800100       0xa6 load address 0x0000000000000474
+.data           0x0000000000800100       0xa2 load address 0x00000000000004e2
                 0x0000000000800100                PROVIDE (__data_start, .)
  *(.data)
  *(.data*)
@@ -340,26 +370,28 @@ END GROUP
  *(.rodata)
  *(.rodata*)
  .rodata.str1.1
-                0x0000000000800104       0xa1 manjarrez_sp.o
+                0x0000000000800104       0x9d manjarrez_sp.o
  *(.gnu.linkonce.d*)
-                0x00000000008001a6                . = ALIGN (0x2)
- *fill*         0x00000000008001a5        0x1 
-                0x00000000008001a6                _edata = .
-                0x00000000008001a6                PROVIDE (__data_end, .)
+                0x00000000008001a2                . = ALIGN (0x2)
+ *fill*         0x00000000008001a1        0x1 
+                0x00000000008001a2                _edata = .
+                0x00000000008001a2                PROVIDE (__data_end, .)
 
-.bss            0x00000000008001a6        0x4
-                0x00000000008001a6                PROVIDE (__bss_start, .)
+.bss            0x00000000008001a2        0x8
+                0x00000000008001a2                PROVIDE (__bss_start, .)
  *(.bss)
  *(.bss*)
- .bss.time      0x00000000008001a6        0x2 manjarrez_sp.o
-                0x00000000008001a6                time
+ .bss.time      0x00000000008001a2        0x2 manjarrez_sp.o
+                0x00000000008001a2                time
  .bss.has_started
-                0x00000000008001a8        0x2 manjarrez_sp.o
-                0x00000000008001a8                has_started
+                0x00000000008001a4        0x2 manjarrez_sp.o
+                0x00000000008001a4                has_started
  *(COMMON)
+ COMMON         0x00000000008001a6        0x4 manjarrez_sp.o
+                0x00000000008001a6                time_to_string
                 0x00000000008001aa                PROVIDE (__bss_end, .)
-                0x0000000000000474                __data_load_start = LOADADDR (.data)
-                0x000000000000051a                __data_load_end = (__data_load_start + SIZEOF (.data))
+                0x00000000000004e2                __data_load_start = LOADADDR (.data)
+                0x0000000000000584                __data_load_end = (__data_load_start + SIZEOF (.data))
 
 .noinit         0x00000000008001aa        0x0
                 0x00000000008001aa                PROVIDE (__noinit_start, .)
@@ -387,14 +419,14 @@ END GROUP
 .user_signatures
  *(.user_signatures*)
 
-.stab           0x0000000000000000     0x102c
+.stab           0x0000000000000000     0x10c8
  *(.stab)
- .stab          0x0000000000000000     0x102c manjarrez_sp.o
-                                       0x10ec (size before relaxing)
+ .stab          0x0000000000000000     0x10c8 manjarrez_sp.o
+                                       0x1188 (size before relaxing)
 
-.stabstr        0x0000000000000000      0xd7b
+.stabstr        0x0000000000000000      0xf0c
  *(.stabstr)
- .stabstr       0x0000000000000000      0xd7b manjarrez_sp.o
+ .stabstr       0x0000000000000000      0xf0c manjarrez_sp.o
 
 .stab.excl
  *(.stab.excl)

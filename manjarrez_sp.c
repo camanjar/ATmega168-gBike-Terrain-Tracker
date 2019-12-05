@@ -3,6 +3,7 @@
 #define BAUD 9600
 #define ADXL345_ADDRESS_W 0b10100110
 #define ADXL345_ADDRESS_R 0b10100111
+#define bits sizeof(uint16_t)*8
 #include "pinDefines.h"
 #include <avr/io.h>      //Macros, ports, registers, etc.
 #include <util/delay.h>  //Library for seconds   
@@ -178,15 +179,6 @@ void gbike_main_display() {
       counter++;
    }
 
-   //TODO
-   // int i = 0;
-   // int total=0;
-   // while(total_average[i]) { 
-   //    total += total_average[i];
-   // }
-
-   // average_num = total/time;
-
    LCD_Clear();
    LCD_String("Average terrain: ");
    LCD_String_xy(1,6, average_terrain());
@@ -254,77 +246,51 @@ char* terrain_type() {
          iter = 0;
       }
    
-   if(z >= 230) {
-
-      if(terrain_difference > 10) {
-         terrain_type_string = "Jagged";
-         av_terrain[counter] = 1;
+   if((z>>15)==1) {
+      z*=-1;
+      if (z >= 0 && z < 30) {
+         if(terrain_difference > 10) {
+            terrain_type_string = "Jagged";
+            av_terrain[counter] = 1;
+         } else {
+            terrain_type_string = "Flat";
+            av_terrain[counter] = 2;
+         }
       } else {
-         terrain_type_string = "Flat";
-         av_terrain[counter] = 2;
-      }
-
-   } else if (z < 230) {
-      terrain_type_string = "Incline";
-      av_terrain[counter] = 3;
-   } else {
+         terrain_type_string = "Incline";
+         av_terrain[counter] = 3;
+         return terrain_type_string;
+   }
+   } else { 
       terrain_type_string = "Decline";
       av_terrain[counter] = 4;
    }
 
-   // char temp[5]; 
-   // itoa(terrain_difference, temp, 10);
-   // terrain_type_string = temp;
+//z += 2;
 
+// if((z>>15)==1) {
+//    terrain_type_string = "-";
+// } else {
+//    terrain_type_string = "+";
+// }
+// char temp[5]; 
+//    itoa(z, temp, 10);
+//    terrain_type_string = temp;
    return terrain_type_string;
-}
+}   
 
-//Gran x, y, z accelerometer values to useable data
+
+//Grab z accelerometer value to useable data
 void calculate_terrain() {
-
-   int msb = 0;
-   uint8_t ex = 0;
-   uint8_t why = 0;
-   uint8_t zee = 0;
-   uint8_t temp = 0;
-      i2cStart(); 
-      i2cSend(ADXL345_ADDRESS_W); //slave address write
-      i2cSend(0x32); //Register of x coordinate information
-      i2cStart();
-      i2cSend(ADXL345_ADDRESS_R); //slave addres read
-      ex = i2cReadAck(); //Read bytes
-      //ex += i2cReadNoAck();
-      i2cStop();
-      x = ex;
-
-      /*
-      The following steps mimic above, reading from each register
-      */
-      i2cStart();
-      i2cSend(ADXL345_ADDRESS_W);
-      i2cSend(0x34);
-      i2cStart();
-      i2cSend(ADXL345_ADDRESS_R);
-      why = i2cReadAck();
-      //why += i2cReadNoAck();
-      i2cStop();
-      y = why;
 
       i2cStart();
       i2cSend(ADXL345_ADDRESS_W); 
-      i2cSend(0x36);
+      i2cSend(0x34);
       i2cStart();
       i2cSend(ADXL345_ADDRESS_R);
-      zee = i2cReadAck();
-      temp = i2cReadNoAck();
+      z = i2cReadAck();
+      z |= i2cReadNoAck() << 8;
       i2cStop();
-      int bits = sizeof(uint8_t) * 8;
-      msb = 1 << (bits -1);
-      if(temp & msb) { 
-         z = zee*-1; //set to 1
-      } else {
-         z = zee;
-      }
 } 
 
 char* average_terrain() {

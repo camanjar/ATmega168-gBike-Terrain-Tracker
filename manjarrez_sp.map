@@ -1,13 +1,15 @@
 Archive member included to satisfy reference by file (symbol)
 
-/usr/lib/gcc/avr/4.9.2/avr5/libgcc.a(_udivmodhi4.o)
-                              manjarrez_sp.o (__udivmodhi4)
+/usr/lib/gcc/avr/4.9.2/avr5/libgcc.a(_divmodhi4.o)
+                              manjarrez_sp.o (__divmodhi4)
 /usr/lib/gcc/avr/4.9.2/avr5/libgcc.a(_exit.o)
                               /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr5/crtatmega168.o (exit)
 /usr/lib/gcc/avr/4.9.2/avr5/libgcc.a(_copy_data.o)
                               manjarrez_sp.o (__do_copy_data)
 /usr/lib/gcc/avr/4.9.2/avr5/libgcc.a(_clear_bss.o)
                               manjarrez_sp.o (__do_clear_bss)
+/usr/lib/gcc/avr/4.9.2/avr5/libgcc.a(_udivmodhi4.o)
+                              /usr/lib/gcc/avr/4.9.2/avr5/libgcc.a(_divmodhi4.o) (__udivmodhi4)
 /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr5/libc.a(itoa_ncheck.o)
                               manjarrez_sp.o (__itoa_ncheck)
 /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr5/libc.a(utoa_ncheck.o)
@@ -19,7 +21,9 @@ Allocating common symbols
 Common symbol       size              file
 
 total_average       0x2               manjarrez_sp.o
+av_terrain          0x3c              manjarrez_sp.o
 x                   0x2               manjarrez_sp.o
+terrain_difference  0x2               manjarrez_sp.o
 average_num         0x2               manjarrez_sp.o
 terrain_type_string
                     0x2               manjarrez_sp.o
@@ -37,20 +41,22 @@ Discarded input sections
  .text.LCD_String_xy
                 0x0000000000000000       0x2e manjarrez_sp.o
  .text.i2cStop  0x0000000000000000        0x8 manjarrez_sp.o
- .text          0x0000000000000000        0x0 /usr/lib/gcc/avr/4.9.2/avr5/libgcc.a(_udivmodhi4.o)
- .data          0x0000000000000000        0x0 /usr/lib/gcc/avr/4.9.2/avr5/libgcc.a(_udivmodhi4.o)
- .bss           0x0000000000000000        0x0 /usr/lib/gcc/avr/4.9.2/avr5/libgcc.a(_udivmodhi4.o)
+ .bss.isNegative
+                0x0000000000000000        0x2 manjarrez_sp.o
+ .text          0x0000000000000000        0x0 /usr/lib/gcc/avr/4.9.2/avr5/libgcc.a(_divmodhi4.o)
+ .data          0x0000000000000000        0x0 /usr/lib/gcc/avr/4.9.2/avr5/libgcc.a(_divmodhi4.o)
+ .bss           0x0000000000000000        0x0 /usr/lib/gcc/avr/4.9.2/avr5/libgcc.a(_divmodhi4.o)
  .text.libgcc.mul
-                0x0000000000000000        0x0 /usr/lib/gcc/avr/4.9.2/avr5/libgcc.a(_udivmodhi4.o)
- .text.libgcc   0x0000000000000000        0x0 /usr/lib/gcc/avr/4.9.2/avr5/libgcc.a(_udivmodhi4.o)
+                0x0000000000000000        0x0 /usr/lib/gcc/avr/4.9.2/avr5/libgcc.a(_divmodhi4.o)
+ .text.libgcc   0x0000000000000000        0x0 /usr/lib/gcc/avr/4.9.2/avr5/libgcc.a(_divmodhi4.o)
  .text.libgcc.prologue
-                0x0000000000000000        0x0 /usr/lib/gcc/avr/4.9.2/avr5/libgcc.a(_udivmodhi4.o)
+                0x0000000000000000        0x0 /usr/lib/gcc/avr/4.9.2/avr5/libgcc.a(_divmodhi4.o)
  .text.libgcc.builtins
-                0x0000000000000000        0x0 /usr/lib/gcc/avr/4.9.2/avr5/libgcc.a(_udivmodhi4.o)
+                0x0000000000000000        0x0 /usr/lib/gcc/avr/4.9.2/avr5/libgcc.a(_divmodhi4.o)
  .text.libgcc.fmul
-                0x0000000000000000        0x0 /usr/lib/gcc/avr/4.9.2/avr5/libgcc.a(_udivmodhi4.o)
+                0x0000000000000000        0x0 /usr/lib/gcc/avr/4.9.2/avr5/libgcc.a(_divmodhi4.o)
  .text.libgcc.fixed
-                0x0000000000000000        0x0 /usr/lib/gcc/avr/4.9.2/avr5/libgcc.a(_udivmodhi4.o)
+                0x0000000000000000        0x0 /usr/lib/gcc/avr/4.9.2/avr5/libgcc.a(_divmodhi4.o)
  .text          0x0000000000000000        0x0 /usr/lib/gcc/avr/4.9.2/avr5/libgcc.a(_exit.o)
  .data          0x0000000000000000        0x0 /usr/lib/gcc/avr/4.9.2/avr5/libgcc.a(_exit.o)
  .bss           0x0000000000000000        0x0 /usr/lib/gcc/avr/4.9.2/avr5/libgcc.a(_exit.o)
@@ -99,6 +105,20 @@ Discarded input sections
                 0x0000000000000000        0x0 /usr/lib/gcc/avr/4.9.2/avr5/libgcc.a(_clear_bss.o)
  .text.libgcc.fixed
                 0x0000000000000000        0x0 /usr/lib/gcc/avr/4.9.2/avr5/libgcc.a(_clear_bss.o)
+ .text          0x0000000000000000        0x0 /usr/lib/gcc/avr/4.9.2/avr5/libgcc.a(_udivmodhi4.o)
+ .data          0x0000000000000000        0x0 /usr/lib/gcc/avr/4.9.2/avr5/libgcc.a(_udivmodhi4.o)
+ .bss           0x0000000000000000        0x0 /usr/lib/gcc/avr/4.9.2/avr5/libgcc.a(_udivmodhi4.o)
+ .text.libgcc.mul
+                0x0000000000000000        0x0 /usr/lib/gcc/avr/4.9.2/avr5/libgcc.a(_udivmodhi4.o)
+ .text.libgcc   0x0000000000000000        0x0 /usr/lib/gcc/avr/4.9.2/avr5/libgcc.a(_udivmodhi4.o)
+ .text.libgcc.prologue
+                0x0000000000000000        0x0 /usr/lib/gcc/avr/4.9.2/avr5/libgcc.a(_udivmodhi4.o)
+ .text.libgcc.builtins
+                0x0000000000000000        0x0 /usr/lib/gcc/avr/4.9.2/avr5/libgcc.a(_udivmodhi4.o)
+ .text.libgcc.fmul
+                0x0000000000000000        0x0 /usr/lib/gcc/avr/4.9.2/avr5/libgcc.a(_udivmodhi4.o)
+ .text.libgcc.fixed
+                0x0000000000000000        0x0 /usr/lib/gcc/avr/4.9.2/avr5/libgcc.a(_udivmodhi4.o)
  .text          0x0000000000000000        0x0 /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr5/libc.a(itoa_ncheck.o)
  .data          0x0000000000000000        0x0 /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr5/libc.a(itoa_ncheck.o)
  .bss           0x0000000000000000        0x0 /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr5/libc.a(itoa_ncheck.o)
@@ -223,7 +243,7 @@ END GROUP
 .rela.plt
  *(.rela.plt)
 
-.text           0x0000000000000000      0x6de
+.text           0x0000000000000000      0x7da
  *(.vectors)
  .vectors       0x0000000000000000       0x68 /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr5/crtatmega168.o
                 0x0000000000000000                __vectors
@@ -357,38 +377,45 @@ END GROUP
                 0x00000000000002ac       0x6e manjarrez_sp.o
                 0x00000000000002ac                main
  .text.terrain_type
-                0x000000000000031a       0x2a manjarrez_sp.o
+                0x000000000000031a       0xcc manjarrez_sp.o
                 0x000000000000031a                terrain_type
  .text.calculate_terrain
-                0x0000000000000344       0xde manjarrez_sp.o
-                0x0000000000000344                calculate_terrain
+                0x00000000000003e6       0xa2 manjarrez_sp.o
+                0x00000000000003e6                calculate_terrain
+ .text.average_terrain
+                0x0000000000000488       0x56 manjarrez_sp.o
+                0x0000000000000488                average_terrain
  .text.gbike_main_display
-                0x0000000000000422       0xd6 manjarrez_sp.o
-                0x0000000000000422                gbike_main_display
+                0x00000000000004de       0xee manjarrez_sp.o
+                0x00000000000004de                gbike_main_display
  .text.riding_bike
-                0x00000000000004f8       0x9c manjarrez_sp.o
-                0x00000000000004f8                riding_bike
+                0x00000000000005cc       0x9c manjarrez_sp.o
+                0x00000000000005cc                riding_bike
  .text.__vector_1
-                0x0000000000000594       0xb4 manjarrez_sp.o
-                0x0000000000000594                __vector_1
+                0x0000000000000668       0xb4 manjarrez_sp.o
+                0x0000000000000668                __vector_1
  .text.libgcc.div
-                0x0000000000000648       0x28 /usr/lib/gcc/avr/4.9.2/avr5/libgcc.a(_udivmodhi4.o)
-                0x0000000000000648                __udivmodhi4
+                0x000000000000071c       0x28 /usr/lib/gcc/avr/4.9.2/avr5/libgcc.a(_divmodhi4.o)
+                0x000000000000071c                __divmodhi4
+                0x000000000000071c                _div
+ .text.libgcc.div
+                0x0000000000000744       0x28 /usr/lib/gcc/avr/4.9.2/avr5/libgcc.a(_udivmodhi4.o)
+                0x0000000000000744                __udivmodhi4
  .text.avr-libc
-                0x0000000000000670       0x16 /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr5/libc.a(itoa_ncheck.o)
-                0x0000000000000670                __itoa_ncheck
+                0x000000000000076c       0x16 /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr5/libc.a(itoa_ncheck.o)
+                0x000000000000076c                __itoa_ncheck
  .text.avr-libc
-                0x0000000000000686       0x34 /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr5/libc.a(utoa_ncheck.o)
-                0x0000000000000686                __utoa_ncheck
-                0x0000000000000688                __utoa_common
+                0x0000000000000782       0x34 /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr5/libc.a(utoa_ncheck.o)
+                0x0000000000000782                __utoa_ncheck
+                0x0000000000000784                __utoa_common
  .text.avr-libc
-                0x00000000000006ba       0x20 /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr5/libc.a(strrev.o)
-                0x00000000000006ba                strrev
-                0x00000000000006da                . = ALIGN (0x2)
+                0x00000000000007b6       0x20 /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr5/libc.a(strrev.o)
+                0x00000000000007b6                strrev
+                0x00000000000007d6                . = ALIGN (0x2)
  *(.fini9)
- .fini9         0x00000000000006da        0x0 /usr/lib/gcc/avr/4.9.2/avr5/libgcc.a(_exit.o)
-                0x00000000000006da                exit
-                0x00000000000006da                _exit
+ .fini9         0x00000000000007d6        0x0 /usr/lib/gcc/avr/4.9.2/avr5/libgcc.a(_exit.o)
+                0x00000000000007d6                exit
+                0x00000000000007d6                _exit
  *(.fini9)
  *(.fini8)
  *(.fini8)
@@ -407,11 +434,11 @@ END GROUP
  *(.fini1)
  *(.fini1)
  *(.fini0)
- .fini0         0x00000000000006da        0x4 /usr/lib/gcc/avr/4.9.2/avr5/libgcc.a(_exit.o)
+ .fini0         0x00000000000007d6        0x4 /usr/lib/gcc/avr/4.9.2/avr5/libgcc.a(_exit.o)
  *(.fini0)
-                0x00000000000006de                _etext = .
+                0x00000000000007da                _etext = .
 
-.data           0x0000000000800100       0xa8 load address 0x00000000000006de
+.data           0x0000000000800100       0xc2 load address 0x00000000000007da
                 0x0000000000800100                PROVIDE (__data_start, .)
  *(.data)
  *(.data*)
@@ -422,40 +449,48 @@ END GROUP
  *(.rodata)
  *(.rodata*)
  .rodata.str1.1
-                0x0000000000800104       0xa4 manjarrez_sp.o
+                0x0000000000800104       0xbd manjarrez_sp.o
  *(.gnu.linkonce.d*)
-                0x00000000008001a8                . = ALIGN (0x2)
-                0x00000000008001a8                _edata = .
-                0x00000000008001a8                PROVIDE (__data_end, .)
+                0x00000000008001c2                . = ALIGN (0x2)
+ *fill*         0x00000000008001c1        0x1 
+                0x00000000008001c2                _edata = .
+                0x00000000008001c2                PROVIDE (__data_end, .)
 
-.bss            0x00000000008001a8       0x14
-                0x00000000008001a8                PROVIDE (__bss_start, .)
+.bss            0x00000000008001c2       0x5a
+                0x00000000008001c2                PROVIDE (__bss_start, .)
  *(.bss)
  *(.bss*)
- .bss.time      0x00000000008001a8        0x2 manjarrez_sp.o
-                0x00000000008001a8                time
+ .bss.counter   0x00000000008001c2        0x2 manjarrez_sp.o
+                0x00000000008001c2                counter
+ .bss.iter      0x00000000008001c4        0x2 manjarrez_sp.o
+                0x00000000008001c4                iter
+ .bss.prev      0x00000000008001c6        0x4 manjarrez_sp.o
+ .bss.time      0x00000000008001ca        0x2 manjarrez_sp.o
+                0x00000000008001ca                time
  .bss.has_started
-                0x00000000008001aa        0x2 manjarrez_sp.o
-                0x00000000008001aa                has_started
+                0x00000000008001cc        0x2 manjarrez_sp.o
+                0x00000000008001cc                has_started
  *(COMMON)
- COMMON         0x00000000008001ac       0x10 manjarrez_sp.o
-                0x00000000008001ac                total_average
-                0x00000000008001ae                x
-                0x00000000008001b0                average_num
-                0x00000000008001b2                terrain_type_string
-                0x00000000008001b4                z
-                0x00000000008001b6                time_to_string
-                0x00000000008001ba                y
-                0x00000000008001bc                PROVIDE (__bss_end, .)
-                0x00000000000006de                __data_load_start = LOADADDR (.data)
-                0x0000000000000786                __data_load_end = (__data_load_start + SIZEOF (.data))
+ COMMON         0x00000000008001ce       0x4e manjarrez_sp.o
+                0x00000000008001ce                total_average
+                0x00000000008001d0                av_terrain
+                0x000000000080020c                x
+                0x000000000080020e                terrain_difference
+                0x0000000000800210                average_num
+                0x0000000000800212                terrain_type_string
+                0x0000000000800214                z
+                0x0000000000800216                time_to_string
+                0x000000000080021a                y
+                0x000000000080021c                PROVIDE (__bss_end, .)
+                0x00000000000007da                __data_load_start = LOADADDR (.data)
+                0x000000000000089c                __data_load_end = (__data_load_start + SIZEOF (.data))
 
-.noinit         0x00000000008001bc        0x0
-                0x00000000008001bc                PROVIDE (__noinit_start, .)
+.noinit         0x000000000080021c        0x0
+                0x000000000080021c                PROVIDE (__noinit_start, .)
  *(.noinit*)
-                0x00000000008001bc                PROVIDE (__noinit_end, .)
-                0x00000000008001bc                _end = .
-                0x00000000008001bc                PROVIDE (__heap_start, .)
+                0x000000000080021c                PROVIDE (__noinit_end, .)
+                0x000000000080021c                _end = .
+                0x000000000080021c                PROVIDE (__heap_start, .)
 
 .eeprom         0x0000000000810000        0x0
  *(.eeprom*)
@@ -476,14 +511,14 @@ END GROUP
 .user_signatures
  *(.user_signatures*)
 
-.stab           0x0000000000000000     0x16e0
+.stab           0x0000000000000000     0x18e4
  *(.stab)
- .stab          0x0000000000000000     0x16e0 manjarrez_sp.o
-                                       0x17dc (size before relaxing)
+ .stab          0x0000000000000000     0x18e4 manjarrez_sp.o
+                                       0x19e0 (size before relaxing)
 
-.stabstr        0x0000000000000000     0x1056
+.stabstr        0x0000000000000000     0x1127
  *(.stabstr)
- .stabstr       0x0000000000000000     0x1056 manjarrez_sp.o
+ .stabstr       0x0000000000000000     0x1127 manjarrez_sp.o
 
 .stab.excl
  *(.stab.excl)

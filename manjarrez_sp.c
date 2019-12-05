@@ -42,8 +42,15 @@ typedef enum terrain {Flat, Rocky, Mixed, Uphill, Downhill} terrain; //Types of 
 int* total_average;
 uint16_t average_num; 
 uint16_t x, y, z;
+int isNegative = 0;
+static int prev[2];
+int iter = 0;
+int terrain_difference;
+int av_terrain[30];
+int counter = 0;
 
 char* terrain_type_string;
+char* average_terrain(); //Returns average terrain
 char* terrain_type(); //Displays string of current detected terrain
 void calculate_terrain(); //Gran x, y, z accelerometer values to useable data
 
@@ -168,6 +175,7 @@ void gbike_main_display() {
       LCD_String_xy(0,9, terrain_type());
       LCD_String_xy(1,6, time_to_string);
       _delay_ms(1000);
+      counter++;
    }
 
    //TODO
@@ -181,7 +189,7 @@ void gbike_main_display() {
 
    LCD_Clear();
    LCD_String("Average terrain: ");
-   LCD_String_xy(1,6, "Rocky");
+   LCD_String_xy(1,6, average_terrain());
    time = 0; //reset
 }
 
@@ -235,11 +243,38 @@ void i2cSend(uint8_t data) {
 
 //Displays string of current detected terrain
 char* terrain_type() {
-   if(average_num >=0 && average_num <= 200) {
-      terrain_type_string = "Rocky";
+
+   if(iter==0) {
+         prev[iter] = z;
+         iter++;
+      } else {
+         terrain_difference = (prev[0]-z);
+            if(terrain_difference < 0) 
+               terrain_difference *= -1;
+         iter = 0;
+      }
+   
+   if(z >= 230) {
+
+      if(terrain_difference > 10) {
+         terrain_type_string = "Jagged";
+         av_terrain[counter] = 1;
+      } else {
+         terrain_type_string = "Flat";
+         av_terrain[counter] = 2;
+      }
+
+   } else if (z < 230) {
+      terrain_type_string = "Incline";
+      av_terrain[counter] = 3;
    } else {
-      terrain_type_string = "Flat";
+      terrain_type_string = "Decline";
+      av_terrain[counter] = 4;
    }
+
+   // char temp[5]; 
+   // itoa(terrain_difference, temp, 10);
+   // terrain_type_string = temp;
 
    return terrain_type_string;
 }
@@ -247,16 +282,20 @@ char* terrain_type() {
 //Gran x, y, z accelerometer values to useable data
 void calculate_terrain() {
 
+   int msb = 0;
+   uint8_t ex = 0;
+   uint8_t why = 0;
+   uint8_t zee = 0;
    uint8_t temp = 0;
       i2cStart(); 
       i2cSend(ADXL345_ADDRESS_W); //slave address write
       i2cSend(0x32); //Register of x coordinate information
       i2cStart();
       i2cSend(ADXL345_ADDRESS_R); //slave addres read
-      temp = i2cReadAck(); //Read bytes
-      temp += i2cReadNoAck();
+      ex = i2cReadAck(); //Read bytes
+      //ex += i2cReadNoAck();
       i2cStop();
-      x = temp;
+      x = ex;
 
       /*
       The following steps mimic above, reading from each register
@@ -266,26 +305,47 @@ void calculate_terrain() {
       i2cSend(0x34);
       i2cStart();
       i2cSend(ADXL345_ADDRESS_R);
-      temp = i2cReadAck();
-      temp += i2cReadNoAck();
+      why = i2cReadAck();
+      //why += i2cReadNoAck();
       i2cStop();
-      y = temp;
+      y = why;
 
       i2cStart();
       i2cSend(ADXL345_ADDRESS_W); 
       i2cSend(0x36);
       i2cStart();
       i2cSend(ADXL345_ADDRESS_R);
-      temp = i2cReadAck();
-      temp += i2cReadNoAck();
+      zee = i2cReadAck();
+      temp = i2cReadNoAck();
       i2cStop();
-      z = temp;
-
-      average_num = (x+y+z)/3;
-      // char boop[5];
-      // itoa(average_num,boop, 10);
-      // LCD_Clear();
-      // LCD_String(boop);
-      // _delay_ms(4000);
-      //printf("%u", (unsigned int)average_num);
+      int bits = sizeof(uint8_t) * 8;
+      msb = 1 << (bits -1);
+      if(temp & msb) { 
+         z = zee*-1; //set to 1
+      } else {
+         z = zee;
+      }
 } 
+
+char* average_terrain() {
+   int sum = 0; 
+   int total = 30; 
+   int average = 0;
+   for(int i = 0; i < 30; i++) {
+      sum+= av_terrain[i];
+   }
+
+   average = sum/total;
+
+   if(average == 1) {
+      return "Jagged";
+   } else if (average == 2) {
+      return "Flat";
+   } else if (average == 3) {
+      return "Incline";
+   } else if (average == 4) {
+      return "Decline";
+   }
+
+   return "No Data";
+}
